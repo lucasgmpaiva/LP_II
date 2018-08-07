@@ -1,0 +1,16 @@
+#BlueJ class context
+comment0.params=
+comment0.target=Celular()
+comment0.text=\n\ COnstrutor\ para\ objetos\ da\ classe\ Celular\n
+comment1.params=valor
+comment1.target=Celular(int)
+comment2.params=
+comment2.target=int\ getSaldo()
+comment2.text=\n\ Exemplo\ de\ m\u00E9todo\ -\ substitua\ este\ coment\u00E1rio\ pelo\ seu\ pr\u00F3prio\n\ \n\ @param\ \ y\ \ \ exemplo\ de\ um\ par\u00E2metro\ de\ m\u00E9todo\n\ @return\ \ \ \ \ a\ soma\ de\ x\ com\ y\ \n
+comment3.params=novoSaldo
+comment3.target=void\ setSaldo(int)
+comment4.params=valor
+comment4.target=void\ topUp(int)
+comment5.params=valor
+comment5.target=void\ utilizarCelular(int)
+numComments=6
