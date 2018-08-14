@@ -22,7 +22,7 @@ public class MailClient {
         }
     }
 
-    public void sendMailItem(String to, String, about, String message) {
+    public void sendMailItem(String to, String about, String message) {
         MailItem item = new MailItem(user, to, about, message);
         server.post(item);
     }

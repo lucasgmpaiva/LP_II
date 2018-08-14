@@ -9,7 +9,7 @@ public class MailItem {
     public MailItem(String from, String to, String about, String message) {
         this.from = from;
         this.to = to;
-	this.subject = about;
+	this.about = about;
         this.message = message;
     }
 
