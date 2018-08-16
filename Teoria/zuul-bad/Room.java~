@@ -90,7 +90,7 @@ public class Room
         return description;
     }
 
-    public void printLocationInfo(){
+    public void printDirections(){
 	System.out.println("You are " + description());
 	System.out.print("Exits: ");
         if(northExit != null) {
