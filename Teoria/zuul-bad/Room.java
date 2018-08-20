@@ -12,15 +12,12 @@
  * @author  Michael Kolling and David J. Barnes
  * @version 2008.03.30
  */
+import java.util.HashMap;
+import java.util.Map;
 public class Room 
 {
     private String description;
-    private Room northExit;
-    private Room southExit;
-    private Room eastExit;
-    private Room westExit;
-    private Room upExit;
-    private Room downExit;
+    private HashMap<String, Room> exits;
 
     /**
      * Create a room described "description". Initially, it has
@@ -31,6 +28,7 @@ public class Room
     public Room(String description) 
     {
         this.description = description;
+        exits = new HashMap<String, Room>();
     }
 
     /**
@@ -42,44 +40,20 @@ public class Room
      * @param west The west exit.
      */
 
-    Room getnorthExit(){
-	return northExit;	
-    }
-
-    Room getsouthExit(){
-	return southExit;	
-    }
-
-    Room geteastExit(){
-	return eastExit;	
-    }
-   
-    Room getwestExit(){
-	return westExit;	
-    }
-
-    Room getupExit(){
-	return upExit;	
-    }
-
-    Room getdownExit(){
-	return downExit;	
-    }
-
     public void setExits(Room north, Room south, Room east, Room west, Room up, Room down) 
     {
         if(north != null)
-            northExit = north;
-        if(east != null)
-            eastExit = east;
+            exits.put("north", north);
         if(south != null)
-            southExit = south;
+            exits.put("south", south);
+        if(east != null)
+            exits.put("east", east);
         if(west != null)
-            westExit = west;
-	if(up != null)
-            upExit = up;
-	if(down != null)
-	    downExit = down;
+            exits.put("west", west);
+        if(up != null)
+            exits.put("up", up);
+        if(down != null)
+            exits.put("down", down);
     }
 
     /**
@@ -91,27 +65,31 @@ public class Room
     }
 
     public void printLocationInfo(){
-	System.out.println("You are " + description());
+	System.out.println("You are " + description);
 	System.out.print("Exits: ");
-        if(northExit != null) {
+        if(exits.get("north") != null) {
             System.out.print("north ");
         }
-        if(eastExit != null) {
+        if(exits.get("east") != null) {
             System.out.print("east ");
         }
-        if(southExit != null) {
+        if(exits.get("south") != null) {
             System.out.print("south ");
         }
-        if(westExit != null) {
+        if(exits.get("west") != null) {
             System.out.print("west ");
         }
-	if(downExit != null) {
+	    if(exits.get("down") != null) {
             System.out.print("down ");
         }
-	if(upExit != null) {
+	    if(exits.get("up") != null) {
             System.out.print("up ");
         }
-        System.out.println();
+            System.out.println();
+    }
+
+    public Room getRoom(String direction){
+        return exits.get(direction);
     }
 
 }

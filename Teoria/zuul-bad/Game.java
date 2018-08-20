@@ -34,7 +34,7 @@ public class Game
      */
     private void createRooms()
     {
-        Room outside, theatre, pub, lab, office, terrace, dungeon, gameRoom;
+        Room outside, theatre, pub, lab, office, terrace, dungeon, gameRoom, toilet, pole, wineroom, bossroom;
       
         // create the rooms
         outside = new Room("outside the main entrance of the university");
@@ -42,18 +42,27 @@ public class Game
         pub = new Room("in the campus pub");
         lab = new Room("in a computing lab");
         office = new Room("in the computing admin office");
-	dungeon = new Room("in a dungeon");
-	terrace = new Room("in the terrace");
-	gameRoom = new Room("in the game room");
-	toilet = new Room("");
+	    dungeon = new Room("in a dungeon");
+	    terrace = new Room("in the terrace");
+	    gameRoom = new Room("in the game room");
+	    toilet = new Room("int the toilet");
+        pole = new Room("in the pole");
+        wineroom = new Room("in the wineroom");
+        bossroom = new Room("in the bossroom");
         
         // initialise room exits
-        outside.setExits(null,lab ,theatre, pub, null, null);
-        theatre.setExits(null, null, null, outside, null, null);
-        pub.setExits(null, null, outside, null, terrace, dungeon);
-        lab.setExits(outside, null, office, null, null);
+        outside.setExits(null, lab, theatre, pub, null, null);
+        theatre.setExits(null, null, null, outside, null, bossroom);
+        pub.setExits(null, null, outside, gameRoom, terrace, dungeon);
+        lab.setExits(outside, null, office, null, null, null);
         office.setExits(null, null, null, lab, null, null);
-	terrace.setExits(null, null, null, null, null, pub);
+        pole.setExits(null, gameRoom, terrace, null, null, toilet);
+	    terrace.setExits(null, null, null, pole, null, pub);
+        gameRoom.setExits(pole, null, pub, toilet, null, null);
+        dungeon.setExits(null, bossroom, null, wineroom, pub, null);
+        toilet.setExits(null, null, gameRoom, null, pole, wineroom);
+        wineroom.setExits(null, null, dungeon, null, toilet, null);
+        bossroom.setExits(dungeon, null, null, null, theatre, null);
 	
 
         currentRoom = outside;  // start game outside
@@ -88,7 +97,7 @@ public class Game
         System.out.println("World of Zuul is a new, incredibly boring adventure game.");
         System.out.println("Type 'help' if you need help.");
         System.out.println();
-	printLocationInfo();
+	    currentRoom.printLocationInfo();
         
     }
 
@@ -148,26 +157,14 @@ public class Game
         String direction = command.getSecondWord();
 
         // Try to leave current room.
-        Room nextRoom = null;
-        if(direction.equals("north")) {
-            nextRoom = currentRoom.getnorthExit();
-        }
-        if(direction.equals("east")) {
-            nextRoom = currentRoom.geteastExit();
-        }
-        if(direction.equals("south")) {
-            nextRoom = currentRoom.getsouthExit();
-        }
-        if(direction.equals("west")) {
-            nextRoom = currentRoom.getwestExit();
-        }
-
-        if (nextRoom == null) {
+        Room nextRoom = currentRoom.getRoom(direction);
+        if (nextRoom == null){
             System.out.println("There is no door!");
         }
-        else {
+        else{
             currentRoom = nextRoom;
             currentRoom.printLocationInfo();
+            System.out.println();
         }
     }
 
