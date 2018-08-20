@@ -19,10 +19,19 @@ public class NumberDisplay
      * Constructor for objects of class NumberDisplay.
      * Set the limit at which the display rolls over.
      */
-    public NumberDisplay(int rollOverLimit)
+    public NumberDisplay(int value, int limit)
     {
-        limit = rollOverLimit;
-        value = 0;
+        this.limit = limit;
+        if(value < 0)
+            value = value*(-1);
+        if(this.limit == 12){
+            while(value > limit){
+                value-= limit;
+            }
+        } else{
+            value = value%limit;
+        }
+        this.value = value;
     }
 
     /**
@@ -40,8 +49,8 @@ public class NumberDisplay
      */
     public String getDisplayValue()
     {
-        if(value < 10) {
-            return "0" + value;
+        if(this.value  < 10) {
+            return "0" + this.value;
         }
         else {
             return "" + value;
@@ -65,6 +74,13 @@ public class NumberDisplay
      */
     public void increment()
     {
-        value = (value + 1) % limit;
+        this.value +=1;
+        if(limit == 60)
+            this.value = this.value%this.limit;
+        else{
+            while(this.value > this.limit){
+                this.value -= this.limit;
+            }
+        }
     }
 }

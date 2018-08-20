@@ -1,8 +1,23 @@
+
+/**
+ * The ClockDisplay class implements a digital clock display for a
+ * European-style 24 hour clock. The clock shows hours and minutes. The 
+ * range of the clock is 00:00 (midnight) to 23:59 (one minute before 
+ * midnight).
+ * 
+ * The clock display receives "ticks" (via the timeTick method) every minute
+ * and reacts by incrementing the display. This is done in the usual clock
+ * fashion: the hour increments when the minutes roll over to zero.
+ * 
+ * @author Michael Kolling and David J. Barnes
+ * @version 2008.03.30
+ */
 public class ClockDisplay
 {
     private NumberDisplay hours;
     private NumberDisplay minutes;
-    private String displayString;    // simulates the actual display
+    private String displayString;
+    private boolean day;
     
     /**
      * Constructor for ClockDisplay objects. This constructor 
@@ -10,8 +25,9 @@ public class ClockDisplay
      */
     public ClockDisplay()
     {
-        hours = new NumberDisplay(24);
-        minutes = new NumberDisplay(60);
+        hours = new NumberDisplay(0,12);
+        minutes = new NumberDisplay(0,60);
+        day = true;
         updateDisplay();
     }
 
@@ -22,9 +38,11 @@ public class ClockDisplay
      */
     public ClockDisplay(int hour, int minute)
     {
-        hours = new NumberDisplay(24);
-        minutes = new NumberDisplay(60);
-        setTime(hour, minute);
+        hours = new NumberDisplay(hour, 12);
+        minutes = new NumberDisplay(minute, 60);
+        day = true;
+        updateDisplay();	
+        //setTime(hour, minute);
     }
 
     /**
@@ -34,8 +52,11 @@ public class ClockDisplay
     public void timeTick()
     {
         minutes.increment();
-        if(minutes.getValue() == 0) {  // it just rolled over!
+        if(minutes.getDisplayValue().intern == 00) {  // it just rolled over!
             hours.increment();
+        }
+        if(minutes.getDisplayValue().intern == 12 && minutes.getDisplayValue().intern() == 00) {
+            this.day == !this.day;
         }
         updateDisplay();
     }
@@ -64,7 +85,10 @@ public class ClockDisplay
      */
     private void updateDisplay()
     {
-        displayString = hours.getDisplayValue() + ":" + 
-                        minutes.getDisplayValue();
+        displayString = hours.getDisplayValue() + ":" + minutes.getDisplayValue();
+        if (day == true)
+        	displayString += " am";
+        else
+        	displayString += " pm";
     }
 }
