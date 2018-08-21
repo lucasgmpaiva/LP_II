@@ -1,0 +1,8 @@
+public class Main{
+
+	public static void main(String[] args){
+		HugeInteger hugeInteger = new HugeInteger();
+
+		hugeInteger.inputHugeInteger("555555555551000000000000000000005000000000");
+	}
+}
