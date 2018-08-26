@@ -16,8 +16,7 @@ import java.awt.geom.*;
  * @version 2010.11.30
  */
 
-public class BouncingBall
-{
+public class BouncingBall {
     private static final int GRAVITY = 3;  // effect of gravity
 
     private int ballDegradation = 2;
@@ -54,8 +53,7 @@ public class BouncingBall
     /**
      * Draw this ball at its current position onto the canvas.
      */
-    public void draw()
-    {
+    public void draw() {
         canvas.setForegroundColor(color);
         canvas.fillCircle(xPosition, yPosition, diameter);
     }
@@ -63,16 +61,14 @@ public class BouncingBall
     /**
      * Erase this ball at its current position.
      */
-    public void erase()
-    {
+    public void erase() {
         canvas.eraseCircle(xPosition, yPosition, diameter);
     }    
 
     /**
      * Move this ball according to its position and speed and redraw.
      */
-    public void move()
-    {
+    public void move() {
         // remove from canvas at the current position
         erase();
             
@@ -95,8 +91,7 @@ public class BouncingBall
      * Get the horizontal position of this ball
      * @return the horizontal position of this ball
      */
-    public int getXPosition()
-    {
+    public int getXPosition() {
         return xPosition;
     }
 
@@ -104,8 +99,7 @@ public class BouncingBall
      * Get the vertical position of this ball
      * @return the vertical position of this ball
      */
-    public int getYPosition()
-    {
+    public int getYPosition() {
         return yPosition;
     }
 }

@@ -8,8 +8,7 @@ import java.awt.Rectangle;
  * @author Michael Kolling and David J. Barnes
  * @version 2010.11.30
  */
-public class CanvasDemo
-{
+public class CanvasDemo {
     private Canvas myCanvas;
     private static final int WIDTH = 600;
     private static final int HEIGHT = 500;
@@ -18,8 +17,7 @@ public class CanvasDemo
      * Create a CanvasDemo object.
      * Creates a fresh canvas and makes it visible.
      */
-    public CanvasDemo()
-    {
+    public CanvasDemo() {
         myCanvas = new Canvas("Canvas Demo", WIDTH, HEIGHT);
         myCanvas.setVisible(true);
     }
@@ -28,8 +26,7 @@ public class CanvasDemo
      * Demonstrate some of the drawing operations that are
      * available on a Canvas object.
      */
-    public void drawDemo()
-    {
+    public void drawDemo() {
         myCanvas.setFont(new Font("helvetica", Font.BOLD, 14));
         myCanvas.setForegroundColor(Color.red);
 
