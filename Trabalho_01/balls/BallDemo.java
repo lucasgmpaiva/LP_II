@@ -23,11 +23,14 @@ public class BallDemo {
     }
  
     /**
-     * Simulate two bouncing balls
+     * Method to make a quantity of balls bounce over the canvas on the ground
+     * @param  void 
+     * @return void
+     * @author Lucas Gabriel Matias Paiva 
      */
     public void bounce() {
         //Initializing variables to store the size and positions of the soil.  
-        int inicio = 20, limite = myCanvas.getSize().width - 20, solo = myCanvas.getSize().height - 70;
+        int inicio = 20, limite = myCanvas.getSize().width- 20, solo = myCanvas.getSize().height - 70;
 
         //Receiving Amount of Balls
         Scanner teclado = new Scanner(System.in);
