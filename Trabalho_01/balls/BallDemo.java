@@ -75,7 +75,7 @@ public class BallDemo {
         for(int i = 0; i < balls; i++){
             //Creating a ball that is in a random spot on the Canvas, as long as it is above ground and within bounds
             //In addition, with 1 random color array of colors
-            BouncingBall bola = new BouncingBall(inicio + random.nextInt(myCanvas.getSize().height), inicio + random.nextInt(myCanvas.getSize().height) - 20,
+            BouncingBall bola = new BouncingBall(inicio + random.nextInt(myCanvas.getSize().width), inicio + random.nextInt(myCanvas.getSize().height),
                                          random.nextInt(20), cores[random.nextInt(13)], solo, myCanvas);
             //Adding the new ball to the collection of balls by drawing it, and waiting for 50 to make the next one (same number that was set in the original code)
             array_Balls.add(bola);
