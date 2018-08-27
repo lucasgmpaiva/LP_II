@@ -1,4 +1,5 @@
 import java.awt.*;
+import java.util.*;
 
 /**
  * Class BallDemo - provides a demonstration of the
@@ -10,7 +11,7 @@ import java.awt.*;
 
 public class BallDemo {
     private Canvas myCanvas;
-    private static final int WIDTH = 600;
+    private static final int WIDTH = 800;
     private static final int HEIGHT = 500;
 
     /**
@@ -19,46 +20,86 @@ public class BallDemo {
      */
     public BallDemo() {
         myCanvas = new Canvas("Ball Demo", WIDTH, HEIGHT);
-        myCanvas.setVisible(true);
     }
  
     /**
      * Simulate two bouncing balls
      */
     public void bounce() {
-    /*
-        int ground = 400;   // position of the ground line
-        int xStart = 50;    // x-start of the ground line
-        int xLimit = 550;   // x-limit of the ground line
-     */
-        Dimension sizeOfCanvas = myCanvas.getSize();
-        int xStart = 20, xBound = sizeOfCanvas.width - 20, yGround = sizeOfCanvas.height - 70;
-
-        myCanvas.setVisible(true);
-
-        // draw the ground
-        myCanvas.setForegroundColor(Color.blue);
-        myCanvas.drawLine(xStart, yGround, xBound, yGround);
+        //Inicializando variáveis para armazenar o tamanho e as posições do solo.   
+        int inicio = 20, limite = myCanvas.getSize().width - 20, solo = myCanvas.getSize().height - 70;
 
         // crate and show the balls
-        BouncingBall ball = new BouncingBall(xStart, 50, 16, Color.blue, yGround, myCanvas);
-        ball.draw();
-        BouncingBall ball2 = new BouncingBall(xStart + 20, 80, 20, Color.red, yGround, myCanvas);
-        ball2.draw();
+        Scanner teclado = new Scanner(System.in);
+        System.out.print("Informe quantas bolas: ");
+        int balls = teclado.nextInt();
 
-        // Make them bounce until both have gone beyond the xLimit.
-        boolean finished =  false;
-        while(!finished) {
-            myCanvas.wait(50);           // small delay
-            ball.move();
-            ball2.move();
-            // stop once ball has travelled a certain distance on x axis
-            if(ball.getXPosition() >= xBound && ball2.getXPosition() >= xBound) {
-                finished = true;
-            }
+        if( balls <= 0 ){
+            System.out.println("Número inválido!");
+            return;
         }
-        ball.erase();
-        ball2.erase();
+
+        // draw the ground
+        myCanvas.setVisible(true);
+        myCanvas.setForegroundColor(Color.blue);
+        myCanvas.drawLine(inicio, solo, limite, solo);
+        
+        //Para poder tratar a quantidade de bolas de forma inderteminada, vamos criar uma coleção com o número informado como tamanho
+        ArrayList<BouncingBall> array_Balls = new ArrayList<BouncingBall>(balls);
+
+        //Como a questão pede que sejam geradas bolas de cores aleatórias, criarei também um vetor com as cores disponíveis na classe java.awt.Color
+        Color cores[] = new Color[13];
+        cores[0] = Color.BLACK;
+        cores[1] = Color.BLUE;
+        cores[2] = Color.CYAN;
+        cores[3] = Color.DARK_GRAY;
+        cores[4] = Color.GRAY;
+        cores[5] = Color.GREEN;
+        cores[6] = Color.LIGHT_GRAY;
+        cores[7] = Color.MAGENTA;
+        cores[8] = Color.ORANGE;
+        cores[9] = Color.PINK;
+        cores[10] = Color.RED;
+        cores[11] = Color.WHITE;
+        cores[12] = Color.YELLOW;
+
+        //Selecionadas as cores, precisamos criar as bolas, com cores aleatórias em lugares aleatórios
+        //Para isso, precisamos de uma variável do tipo Random
+        Random random = new Random();
+
+        //Agora criaremos as bolas
+
+        for(int i = 0; i < balls; i++){
+            BouncingBall bola = new BouncingBall(inicio + random.nextInt(myCanvas.getSize().height), inicio + random.nextInt(myCanvas.getSize().height) - 20,
+                                         random.nextInt(20), cores[random.nextInt(13)], solo, myCanvas);
+            array_Balls.add(bola);
+            array_Balls.get(i).draw();
+            myCanvas.wait(50);
+        }
+
+        int x = 1;
+
+        do{
+            myCanvas.wait(50);
+            for(BouncingBall b : array_Balls){
+                b.move();
+                int bolasForaDoCanvas = 0;
+                for(BouncingBall b2 : array_Balls){
+                    if(b2.getXPosition() >= limite){
+                        bolasForaDoCanvas += 1;
+                    }
+                }
+                if(bolasForaDoCanvas >= balls){
+                    x = 0;
+                }
+            }
+        } while(x!=0);
+
+        for(int i = 0; i < balls; i++){
+            array_Balls.get(i).erase();
+        }
+
+
     }
     /**
      * Method to draw a frame with a rectangle with 20px of distance to the border of the canvas. It works with any size of Canvas.
