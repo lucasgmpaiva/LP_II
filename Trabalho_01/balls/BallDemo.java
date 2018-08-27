@@ -26,10 +26,10 @@ public class BallDemo {
      * Simulate two bouncing balls
      */
     public void bounce() {
-        //Inicializando variáveis para armazenar o tamanho e as posições do solo.   
+        //Initializing variables to store the size and positions of the soil.  
         int inicio = 20, limite = myCanvas.getSize().width - 20, solo = myCanvas.getSize().height - 70;
 
-        // crate and show the balls
+        //Receiving Amount of Balls
         Scanner teclado = new Scanner(System.in);
         System.out.print("Informe quantas bolas: ");
         int balls = teclado.nextInt();
@@ -39,15 +39,15 @@ public class BallDemo {
             return;
         }
 
-        // draw the ground
+        // Drawning the grount
         myCanvas.setVisible(true);
         myCanvas.setForegroundColor(Color.blue);
         myCanvas.drawLine(inicio, solo, limite, solo);
         
-        //Para poder tratar a quantidade de bolas de forma inderteminada, vamos criar uma coleção com o número informado como tamanho
+        //In order to be able to treat the quantity of balls indefinitely, we will create a collection with the number informed as size
         ArrayList<BouncingBall> array_Balls = new ArrayList<BouncingBall>(balls);
 
-        //Como a questão pede que sejam geradas bolas de cores aleatórias, criarei também um vetor com as cores disponíveis na classe java.awt.Color
+        //As the question asks for random color balls to be generated, I will also create a vector with the colors available in class java.awt.Color
         Color cores[] = new Color[13];
         cores[0] = Color.BLACK;
         cores[1] = Color.BLUE;
@@ -63,24 +63,29 @@ public class BallDemo {
         cores[11] = Color.WHITE;
         cores[12] = Color.YELLOW;
 
-        //Selecionadas as cores, precisamos criar as bolas, com cores aleatórias em lugares aleatórios
-        //Para isso, precisamos de uma variável do tipo Random
+        //Selected the colors, we need to create the balls, with random colors in random places
+        //For this, we need a variable of type Random
         Random random = new Random();
 
-        //Agora criaremos as bolas
+        //Now we create the balls
 
         for(int i = 0; i < balls; i++){
+            //Creating a ball that is in a random spot on the Canvas, as long as it is above ground and within bounds
+            //In addition, with 1 random color array of colors
             BouncingBall bola = new BouncingBall(inicio + random.nextInt(myCanvas.getSize().height), inicio + random.nextInt(myCanvas.getSize().height) - 20,
                                          random.nextInt(20), cores[random.nextInt(13)], solo, myCanvas);
+            //Adding the new ball to the collection of balls by drawing it, and waiting for 50 to make the next one (same number that was set in the original code)
             array_Balls.add(bola);
             array_Balls.get(i).draw();
             myCanvas.wait(50);
         }
 
+        //Variable that will determine the end of the loop
         int x = 1;
 
         do{
             myCanvas.wait(50);
+            //Traversing with a foreach the collection of balls and causing them to move until they all exceed the limit of the canvas
             for(BouncingBall b : array_Balls){
                 b.move();
                 int bolasForaDoCanvas = 0;
@@ -95,6 +100,7 @@ public class BallDemo {
             }
         } while(x!=0);
 
+        //Once they all exceed the limit, they are deleted
         for(int i = 0; i < balls; i++){
             array_Balls.get(i).erase();
         }
