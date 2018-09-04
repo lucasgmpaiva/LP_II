@@ -1,0 +1,19 @@
+import java.util.ArrayList;
+
+public class Banco {
+	private ArrayList<ContaBancaria> contas;
+
+	public Banco() {
+		contas = new ArrayList<ContaBancaria>();
+	}
+
+	public void adicionarConta(ContaBancaria c) {
+		contas.add(c);
+	}
+
+	public void listarContas() {
+		for(ContaBancaria c : contas) {
+			System.out.println(c);
+		}
+	}
+}
