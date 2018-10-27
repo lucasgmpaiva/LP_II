@@ -14,9 +14,7 @@
 		return t;
 	}
 	
-	
-	//unused
-	private String readTreePreOrder(Node no) {
+	public String readTreePreOrder(Node no) {
 		if(no == null) return "";
 		String t = "";
 		t += (t.isEmpty() ? " " : " ,") + no.toString();
@@ -25,8 +23,7 @@
 		return t;
 	}
 	
-	//unused
-	private String readTreeInOrder(Node no) {
+	public String readTreeInOrder(Node no) {
 		if (no == null) { return ""; }
 		String t = "";
 		if(no.getLeft() != null) {
